@@ -1,0 +1,104 @@
+version: "2"
+overrides:
+  go:
+    overrides:
+      - db_type: "uuid"
+        nullable: true
+        go_type:
+          import: "ride-hail/pkg/uuid"
+          type: "UUID"
+      - db_type: "uuid"
+        go_type:
+          import: "ride-hail/pkg/uuid"
+          type: "UUID"
+      # float64
+
+      - db_type: "decimal(10,2)"
+        go_type:
+          type: "float64"
+
+      - db_type: "decimal(10,2)"
+        nullable: true
+        go_type:
+          type: "float64"
+          pointer: true
+      - db_type: "integer"
+        go_type:
+          type: "int"
+      - db_type: "integer"
+        nullable: true
+        go_type:
+          type: "int"
+
+
+      # time.Time
+      - db_type: "timestamptz"
+        go_type:
+          import: "time"
+          type: "Time"
+
+      - db_type: "timestamptz"
+        nullable: true
+        go_type:
+          import: "time"
+          type: "Time"
+          pointer: true
+      - db_type: "timestamp"
+        go_type:
+          import: "time"
+          type: "Time"
+
+      - db_type: "timestamp"
+        nullable: true
+        go_type:
+          import: "time"
+
+      - db_type: "date"
+        nullable: true
+        go_type:
+          import: "time"
+          type: "Time"
+
+      - db_type: "date"
+        go_type:
+          import: "time"
+          type: "Time"
+
+      # bool
+      - db_type: "boolean"
+        go_type:
+          type: "bool"
+
+      - db_type: "boolean"
+        nullable: true
+        go_type:
+          type: "bool"
+          pointer: true
+
+      # string
+      - db_type: "text"
+        go_type:
+          type: "string"
+
+      - db_type: "text"
+        nullable: true
+        go_type:
+          type: "string"
+          pointer: true
+      # any
+      - db_type: "jsonb"
+        nullable: true
+        go_type:
+          type: "any"
+
+sql:
+  - schema: "./migrations"
+    queries: "./queries/"
+    engine: "postgresql"
+    gen:
+      go:
+        out: "./pkg/sqlc"
+        package: "sqlc"
+        sql_package: "pgx/v5"
+        emit_interface: true
+        omit_unused_structs: true
